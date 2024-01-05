@@ -3,7 +3,7 @@
 ![MIT License](https://img.shields.io/badge/License-MIT-green.svg)
 ![GitHub last commit](https://img.shields.io/github/last-commit/6uhrmittag/Itch-Sort-And-Export)
 
-Quickly sort and export Itch.io game listings with a simple userscript.
+Quickly sort and/or export Itch.io game listings with a simple userscript.
 
 ![Screenshot of new buttons fo sorting and exporting on the website](_static/new_buttons.png)
 
@@ -45,12 +45,17 @@ and [Greasemonkey](https://en.wikipedia.org/wiki/Greasemonkey). Itch-Sort-And-Ex
 
 ## How to Use
 
-1. **Loading Games**: Go to any game listing page on Itch.io. Use the "Load All Games" feature to automatically load
-   every game on the page.
-2. **Sorting Games**: After loading the games, click on "Sort by Price" to rearrange the games in the order of your
-   preference (low to high or high to low).
-3. **Exporting Data**: Once the games are sorted, use the "Export Game Data" function to download all the information as
-   a CSV file.
+The features work on any page under browse (like [itch.io/games](https://itch.io/games)
+or [itch.io/comics](https://itch.io/comics)).
+
+- **Loading all Games/Items**: To sort all existing items, you need to first load all items. Click the button and wait
+  until all items are loaded. Please use a filter first to narrow down your search. Loading thousands of items will take
+  ages and put unnecessary load on the Itch.io servers.  
+  The estimated loading time is displayed next to the "Load All Games" button.  
+  **To just sort or export the currently visible items, you don't need to load all items.**
+- **Sorting Games/Items by Price**: Sorts items by highest/lowest price.
+- **Sorting Games/Items by Discount**: Sorts items by highest discount (percentage value).
+- **Exporting Data**: Exports all currently visible items as a CSV file. Use `Load All Items` first to export all items.
 
 ## Debugging
 
