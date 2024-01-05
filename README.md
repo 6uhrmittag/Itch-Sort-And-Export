@@ -55,7 +55,7 @@ or [itch.io/comics](https://itch.io/comics)).
   **To just sort or export the currently visible items, you don't need to load all items.**
 - **Sorting Games/Items by Price**: Sorts items by highest/lowest price.
 - **Sorting Games/Items by Discount**: Sorts items by highest discount (percentage value).
-- **Exporting Data**: Exports all currently visible items as a CSV file. Use `Load All Items` first to export all items.
+- **Exporting Data**: Exports all items as a CSV file. It automatically loads **all** items first!
 
 ## Debugging
 
