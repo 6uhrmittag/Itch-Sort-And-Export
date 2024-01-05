@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.1
+// @version       0.2
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
@@ -109,14 +109,27 @@
         });
     }
 
+    // Function to highlight active button like the original buttons
+    function updateActiveButton(clickedButton) {
+        // Remove 'active' class from all buttons
+        const allButtons = document.querySelectorAll('.ItchSortAndExportButtons');
+        allButtons.forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Add 'active' class to the clicked button
+        clickedButton.classList.add('active');
+    }
+
     // Function to create and attach the sort buttons
     function createNewButtons() {
         // Locate the container for the sort options using class names
         const sortOptionsContainer = document.querySelector('.browse_sort_options_widget.base_widget ul.sorts');
 
         const loadAllButton = document.createElement('li');
-        loadAllButton.innerHTML = `<button id="loadAllGames">Load All Items (estm. ${estimatedMinutes.toFixed(1)} min)</button>`;
-        loadAllButton.addEventListener('click', () => {
+        loadAllButton.innerHTML = `<button id="loadAllGames" class="ItchSortAndExportButtons">Load All Items (estm. ${estimatedMinutes.toFixed(1)} min)</button>`;
+        loadAllButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this); // Update active class on click
             continuouslyLoadGames(() => {
                 console.log("All games loaded!");
                 window.scrollTo(0, 0); // Scroll to the top of the page
@@ -126,24 +139,33 @@
 
         // Create the Low to High button
         const lowToHighButton = document.createElement('li');
-        lowToHighButton.innerHTML = `<button id="sortLowToHigh">Price: Low to High</button>`;
-        lowToHighButton.addEventListener('click', () => sortGamesByPrice(true)); // Assuming sortGamesByPrice accepts a boolean for direction
+        lowToHighButton.innerHTML = `<button id="sortLowToHigh" class="ItchSortAndExportButtons">Price: Low to High</button>`;
+        lowToHighButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this); // Update active class on click
+            sortGamesByPrice(true); // Assuming sortGamesByPrice accepts a boolean for direction
+        });
+
 
         // Create the High to Low button
         const highToLowButton = document.createElement('li');
-        highToLowButton.innerHTML = `<button id="sortHighToLow">Price: High to Low</button>`;
-        highToLowButton.addEventListener('click', () => sortGamesByPrice(false)); // Assuming sortGamesByPrice accepts a boolean for direction
+        highToLowButton.innerHTML = `<button id="sortHighToLow" class="ItchSortAndExportButtons">Price: High to Low</button>`;
+        highToLowButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this); // Update active class on click
+            sortGamesByPrice(false); // Assuming sortGamesByPrice accepts a boolean for direction
+        });
 
         // Create the "Sort by Discount" button
         const sortByDiscountButton = document.createElement('li');
-        sortByDiscountButton.innerHTML = `<button id="sortByDiscount">Sort by Discount</button>`;
-        sortByDiscountButton.addEventListener('click', () => sortGamesByDiscount()); // Linking to the sorting function
-
+        sortByDiscountButton.innerHTML = `<button id="sortByDiscount" class="ItchSortAndExportButtons">Sort by Discount</button>`;
+        sortByDiscountButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this);
+            sortGamesByDiscount(); // Linking to the sorting function
+        });
         // Create the Export Game Data button
         const exportButton = document.createElement('li');
-        exportButton.innerHTML = `<button id="exportGameData">Export Item Data</button>`;
-        exportButton.addEventListener('click', () => {
-            // Existing logic to export game data
+        exportButton.innerHTML = `<button id="exportGameData" class="ItchSortAndExportButtons">Export Item Data</button>`;
+        exportButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this); // Update active class on click
             continuouslyLoadGames(() => {
                 const data = extractGameData();
                 const csv = arrayToCSV(data);
