@@ -12,6 +12,7 @@ Quickly sort and/or export Itch.io game listings with a simple userscript.
 - **Load All Games**: Dynamically loads all listed games on the current page.
 - **Sort Games by Price**: sort games by highest or lowest price.
 - **Sort Games by Discount**: Sort games by highest discount.
+- **Sort Games by Number of Ratings**: Sort by most or least ratings.
 - **Export Game Data**: Export the loaded game data into a CSV file.
 
 Should work for all item types like games, comics, books, etc.
@@ -55,6 +56,7 @@ or [itch.io/comics](https://itch.io/comics)).
   **To just sort or export the currently visible items, you don't need to load all items.**
 - **Sorting Games/Items by Price**: Sorts items by highest/lowest price.
 - **Sorting Games/Items by Discount**: Sorts items by highest discount (percentage value).
+- **Sorting Games/Items by Number of Ratings**: Sorts items by most/least number of ratings(only works on the "Top rated" page).
 - **Exporting Data**: Exports all items as a CSV file. It automatically loads **all** items first!
 
 ## Debugging
@@ -74,6 +76,6 @@ the [LICENSE](https://github.com/6uhrmittag/Itch-Sort-And-Export/blob/main/LICEN
 ## Acknowledgements
 
 - [ChatGPT-4 by OpenAI](https://openai.com/gpt-4) - **ChatGPT wrote 99%** of the Code of the userscript. It even
-  generated most of this README. We developed the Userscript in a single chat thread/context over 3 hours.
+  generated most of this README. We developed version 0.1 of the Userscript in a single chat thread/context over 3 hours.
 - [Itch.io](https://itch.io/) - For providing a fantastic platform for indie games.
 - [Tampermonkey](https://www.tampermonkey.net/) - For making userscript management easy and accessible.

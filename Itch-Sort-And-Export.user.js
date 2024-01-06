@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.2.1
+// @version       0.3.0
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
@@ -127,6 +127,26 @@
         });
     }
 
+    // Adjusted function to sort games by number of ratings with direction
+    function sortGamesByNumberOfRatings(ascending = true) {
+        let games = document.querySelectorAll('.game_cell');
+        let gameData = Array.from(games).map(game => {
+            let ratingsText = game.querySelector('.rating_count') ? game.querySelector('.rating_count').innerText.trim().replace(/[^\d]/g, '') : "0";
+            let ratings = parseInt(ratingsText); // Convert ratings text to number
+            return {element: game, ratings: ratings};
+        });
+
+        // Sort the array of game data by number of ratings, either ascending or descending
+        gameData.sort((a, b) => ascending ? a.ratings - b.ratings : b.ratings - a.ratings);
+
+        // Rearrange the game cells in the DOM
+        const container = document.querySelector('.game_grid_widget'); // Ensure this selector is accurate
+        container.innerHTML = ''; // Clear the container
+        gameData.forEach(game => {
+            container.appendChild(game.element); // Append each game element back to the container in sorted order
+        });
+    }
+
     // Function to highlight active button like the original buttons
     function updateActiveButton(clickedButton) {
         // Remove 'active' class from all buttons
@@ -142,7 +162,19 @@
     // Function to create and attach the sort buttons
     function createNewButtons() {
         // Locate the container for the sort options using class names
-        const sortOptionsContainer = document.querySelector('.browse_sort_options_widget.base_widget ul.sorts');
+        const sortOptionsContainer = document.querySelector('.browse_sort_options_widget.base_widget');
+
+        // Check if the current page is a 'top-rated' page
+        const isTopRatedPage = /https:\/\/itch\.io\/[^\/]+\/top-rated/.test(window.location.href);
+
+        // Create a new div container for the additional buttons
+        const additionalButtonContainer = document.createElement('div');
+        additionalButtonContainer.className = 'browse_sort_options_widget base_widget'; // Assign the same class to inherit styling
+
+        // Create a new ul inside the div for the button list
+        const additionalSortOptionsList = document.createElement('ul');
+        additionalSortOptionsList.className = 'sorts'; // Assign the same class to inherit styling
+
 
         const loadAllButton = document.createElement('li');
         loadAllButton.innerHTML = `<button id="loadAllGames" class="ItchSortAndExportButtons">Load All Items (estm. ${estimatedMinutes.toFixed(1)} min)</button>`;
@@ -179,6 +211,23 @@
             updateActiveButton(this);
             sortGamesByDiscount(); // Linking to the sorting function
         });
+
+        // Create the "Sort by Number of Ratings: Low to High" button
+        const sortByRatingsLowHighButton = document.createElement('li');
+        sortByRatingsLowHighButton.innerHTML = `<button id="sortByRatingsLowHigh" class="ItchSortAndExportButtons">Ratings: Low to High</button>`;
+        sortByRatingsLowHighButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this);
+            sortGamesByNumberOfRatings(true); // Sort low to high
+        });
+
+        // Create the "Sort by Number of Ratings: High to Low" button
+        const sortByRatingsHighLowButton = document.createElement('li');
+        sortByRatingsHighLowButton.innerHTML = `<button id="sortByRatingsHighLow" class="ItchSortAndExportButtons">Ratings: High to Low</button>`;
+        sortByRatingsHighLowButton.firstChild.addEventListener('click', function () {
+            updateActiveButton(this);
+            sortGamesByNumberOfRatings(false); // Sort high to low
+        });
+
         // Create the Export Game Data button
         const exportButton = document.createElement('li');
         exportButton.innerHTML = `<button id="exportGameData" class="ItchSortAndExportButtons">Export Item Data</button>`;
@@ -193,11 +242,23 @@
 
         // Append the new buttons to the sort options container
         if (sortOptionsContainer) {
-            sortOptionsContainer.appendChild(loadAllButton);
-            sortOptionsContainer.appendChild(lowToHighButton);
-            sortOptionsContainer.appendChild(highToLowButton);
-            sortOptionsContainer.appendChild(sortByDiscountButton);
-            sortOptionsContainer.appendChild(exportButton); // Append the Export button here
+            additionalSortOptionsList.appendChild(loadAllButton);
+            additionalSortOptionsList.appendChild(lowToHighButton);
+            additionalSortOptionsList.appendChild(highToLowButton);
+            additionalSortOptionsList.appendChild(sortByDiscountButton);
+            // Conditionally append the sort by ratings buttons if on the 'top-rated' page
+            if (isTopRatedPage) {
+                additionalSortOptionsList.appendChild(sortByRatingsLowHighButton);
+                additionalSortOptionsList.appendChild(sortByRatingsHighLowButton);
+            }
+            additionalSortOptionsList.appendChild(exportButton); // Append the Export button here
+
+            // Append the ul list to the new div container
+            additionalButtonContainer.appendChild(additionalSortOptionsList);
+
+            // Now, insert the new div container right after the existing sort options container
+            sortOptionsContainer.parentNode.insertBefore(additionalButtonContainer, sortOptionsContainer.nextSibling);
+
         } else {
             console.error("Sort options container not found!");
         }

@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings with a simple userscript.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.2.1
+// @version       0.3.0
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
