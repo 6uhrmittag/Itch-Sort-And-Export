@@ -73,6 +73,12 @@ Feel free to open Issues and Pull Requests. I'll try to respond as soon as possi
 This project is licensed under the MIT License - see
 the [LICENSE](https://github.com/6uhrmittag/Itch-Sort-And-Export/blob/main/LICENSE) file for details.
 
+## itch.io page
+
+The Userscript can also be found on itch.io: [https://6uhrmittag.itch.io/itch-sort-and-export-userscript](https://6uhrmittag.itch.io/itch-sort-and-export-userscript)
+
+![Screenshot of Itch-Sort-And-Export being listed as the newest tool on itch.io](_static/itch-newest-tool-listing.png)
+
 ## Acknowledgements
 
 - [ChatGPT-4 by OpenAI](https://openai.com/gpt-4) - **ChatGPT wrote 99%** of the Code of the userscript. It even
