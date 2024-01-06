@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.2
+// @version       0.2.1
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
@@ -49,17 +49,35 @@
     // Function to periodically check and load more games until all are loaded
     function continuouslyLoadGames(callback) {
         let startTime = Date.now(); // Capture start time
+        let lastLoadedGames = 0;
+        let sameCount = 0; // To track the number of consecutive checks with no new games
 
         const interval = setInterval(() => {
+            let loadedGames = document.querySelectorAll('.game_cell').length; // Current number of loaded games
+
             if (!allGamesLoaded()) {
+                if (loadedGames === lastLoadedGames) {
+                    // If the number of loaded games hasn't increased
+                    sameCount++;
+                    if (sameCount >= 3) { // Arbitrary number, adjust based on behavior (e.g., 3 checks)
+                        clearInterval(interval);
+                        window.scrollTo(0, 0);
+                        console.log("Stopped trying to load more games - no new games loaded for several checks.");
+                        callback();
+                        return; // Exit the function early
+                    }
+                } else {
+                    // If new games have loaded, reset the sameCount and update lastLoadedGames
+                    sameCount = 0;
+                    lastLoadedGames = loadedGames;
+                }
                 loadMoreGames();
             } else {
+                // All games are loaded
                 clearInterval(interval);
-                let endTime = Date.now(); // Capture end time
+                let endTime = Date.now();
                 let actualSeconds = (endTime - startTime) / 1000; // Calculate actual duration in seconds
                 window.scrollTo(0, 0); // Scroll to the top of the page
-
-                // Log comparison of estimated and actual time
                 console.log(`Estimated loading time: ${estimatedSeconds.toFixed(2)} seconds.`);
                 console.log(`Actual loading time: ${actualSeconds.toFixed(2)} seconds.`);
                 callback(); // Run the callback function once all games are loaded
