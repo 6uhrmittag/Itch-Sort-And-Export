@@ -5,7 +5,7 @@
 
 Quickly sort and/or export Itch.io game listings with a simple userscript.
 
-![Screenshot of new buttons fo sorting and exporting on the website](_static/new_buttons.png)
+![Gif of new buttons for sorting in action](_static/Itch-Sort-And-Export.gif)
 
 ## Features
 
