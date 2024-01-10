@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.3.0
+// @version       0.3.1
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
@@ -319,6 +319,12 @@
     }
 
     // add buttons after page is loaded
-    window.addEventListener('load', createNewButtons);
+    // Version for Firefox
+    if (document.readyState === "complete") {
+        createNewButtons();
+    } else {
+        // Version for Chrome and Edge
+        window.addEventListener('load', createNewButtons);
+    }
 
 })();
