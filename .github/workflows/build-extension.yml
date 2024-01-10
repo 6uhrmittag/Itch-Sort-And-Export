@@ -1,0 +1,40 @@
+name: Build Browser Addon
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install web-ext
+        run: npm install --global web-ext
+
+      - name: Copy userscript to addon directory
+        run: cp Itch-Sort-And-Export.user.js browser_addon/
+
+      - name: Build the extension with web-ext
+        run: |
+          MANIFEST_PATH="browser_addon/manifest.json"
+          VERSION=$(grep "@version" Itch-Sort-And-Export.user.js | awk '{print $3}' | tr -d '\r')
+          sudo apt-get install -y jq 
+          jq --arg v "$VERSION" '.version = $v' "$MANIFEST_PATH" > temp.json && mv temp.json "$MANIFEST_PATH"
+          NEW_NAME="Sort-And-Export-for-itch.io"
+          jq --arg newName "$NEW_NAME" '.name = $newName' "$MANIFEST_PATH" > temp.json && mv temp.json "$MANIFEST_PATH"
+          web-ext build --source-dir browser_addon --artifacts-dir web-ext-artifacts --overwrite-dest
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: extension-artifacts
+          path: web-ext-artifacts/
