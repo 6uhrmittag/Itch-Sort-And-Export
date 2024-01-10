@@ -31,18 +31,11 @@ jobs:
           jq --arg v "$VERSION" '.version = $v' "$MANIFEST_PATH" > temp.json && mv temp.json "$MANIFEST_PATH"
           NEW_NAME="Sort-And-Export-for-itch.io"
           jq --arg newName "$NEW_NAME" '.name = $newName' "$MANIFEST_PATH" > temp.json && mv temp.json "$MANIFEST_PATH"
-          web-ext build --source-dir browser_addon --artifacts-dir web-ext-artifacts --overwrite-dest
-
-      - name: Set ZIP path and name
-        run: |
-          ZIP_PATH=$(ls web-ext-artifacts/*.zip)
-          echo "ZIP_PATH=$ZIP_PATH" >> $GITHUB_ENV
-          ZIP_NAME=$(basename $ZIP_PATH)
-          cd web-ext-artifacts
-          unzip $ZIP_NAME
-          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
+          mv browser_addon "$NEW_NAME-$VERSION"
+          echo "ZIP_NAME=$NEW_NAME-$VERSION" >> $GITHUB_ENV
+          # web-ext build --source-dir browser_addon --artifacts-dir web-ext-artifacts --overwrite-dest
 
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ env.ZIP_NAME }}
-          path: ${{ env.ZIP_PATH }}
+          path: ${{ env.ZIP_NAME }}
