@@ -38,6 +38,7 @@ jobs:
           ZIP_PATH=$(ls web-ext-artifacts/*.zip)
           echo "ZIP_PATH=$ZIP_PATH" >> $GITHUB_ENV
           ZIP_NAME=$(basename $ZIP_PATH)
+          cd web-ext-artifacts
           unzip $ZIP_NAME
           echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
 
