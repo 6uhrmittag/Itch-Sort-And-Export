@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: extension-artifacts
-          path: web-ext-artifacts/
+          path: web-ext-artifacts/*.zip
