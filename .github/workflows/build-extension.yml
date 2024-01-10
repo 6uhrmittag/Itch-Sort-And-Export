@@ -34,7 +34,9 @@ jobs:
           web-ext build --source-dir browser_addon --artifacts-dir web-ext-artifacts --overwrite-dest
 
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
+        run: echo "ZIP_PATH=$(ls web-ext-artifacts/*.zip)" >> $GITHUB_ENV
+
+      - uses: actions/upload-artifact@v2
         with:
-          name: extension-artifacts
-          path: web-ext-artifacts/*.zip
+          name: extension-artifact
+          path: ${{ env.ZIP_PATH }}
