@@ -32,8 +32,8 @@ jobs:
           NEW_NAME="Sort-And-Export-for-itch.io"
           jq --arg newName "$NEW_NAME" '.name = $newName' "$MANIFEST_PATH" > temp.json && mv temp.json "$MANIFEST_PATH"
           # create Archive for the addon
-          mv browser_addon "$NEW_NAME-$VERSION"
           echo "ZIP_NAME=$(echo ${NEW_NAME}-${VERSION} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          mv browser_addon "$ZIP_NAME"
           # using web-ext isn't really necessary at this point
           # web-ext build --source-dir browser_addon --artifacts-dir web-ext-artifacts --overwrite-dest
 
