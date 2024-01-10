@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.3.1
+// @version       0.3.2
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
@@ -177,8 +177,12 @@
 
 
         const loadAllButton = document.createElement('li');
-        loadAllButton.innerHTML = `<button id="loadAllGames" class="ItchSortAndExportButtons">Load All Items (estm. ${estimatedMinutes.toFixed(1)} min)</button>`;
-        loadAllButton.firstChild.addEventListener('click', function () {
+        const button = document.createElement('button');
+        button.id = "loadAllGames";
+        button.className = "ItchSortAndExportButtons";
+        button.textContent = `Load All Items (estm. ${estimatedMinutes.toFixed(1)} min)`;
+        loadAllButton.appendChild(button);
+        button.addEventListener('click', function () {
             updateActiveButton(this); // Update active class on click
             continuouslyLoadGames(() => {
                 console.log("All games loaded!");
