@@ -33,10 +33,14 @@ jobs:
           jq --arg newName "$NEW_NAME" '.name = $newName' "$MANIFEST_PATH" > temp.json && mv temp.json "$MANIFEST_PATH"
           web-ext build --source-dir browser_addon --artifacts-dir web-ext-artifacts --overwrite-dest
 
-      - name: Archive production artifacts
-        run: echo "ZIP_PATH=$(ls web-ext-artifacts/*.zip)" >> $GITHUB_ENV
+      - name: Set ZIP path and name
+        run: |
+          ZIP_PATH=$(ls web-ext-artifacts/*.zip)
+          echo "ZIP_PATH=$ZIP_PATH" >> $GITHUB_ENV
+          ZIP_NAME=$(basename $ZIP_PATH)
+          echo "ZIP_NAME=$ZIP_NAME" >> $GITHUB_ENV
 
       - uses: actions/upload-artifact@v2
         with:
-          name: extension-artifact
+          name: ${{ env.ZIP_NAME }}
           path: ${{ env.ZIP_PATH }}
