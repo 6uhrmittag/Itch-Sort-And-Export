@@ -24,8 +24,8 @@ listings efficiently. It integrates directly into the Itch.io webpage, providing
 experience.
 
 Userscripts are small JavaScript scripts that can be installed in your browser to modify the behavior of a webpage.
-There are different extensions for userscripts like [Tampermonkey](https://www.tampermonkey.net/)
-and [Greasemonkey](https://en.wikipedia.org/wiki/Greasemonkey). Itch-Sort-And-Export is only tested in Tampermonkey.
+There are different extensions for userscripts like [Violentmonkey](https://violentmonkey.github.io/)
+and [Greasemonkey](https://en.wikipedia.org/wiki/Greasemonkey). Itch-Sort-And-Export is only tested in Tampermonkey, but I only recently learned that it's Violentmonkey is superior to Tampermonkey([discussion on hackernews](https://news.ycombinator.com/item?id=34040098)).
 
 ## Precautions
 
@@ -39,8 +39,8 @@ and [Greasemonkey](https://en.wikipedia.org/wiki/Greasemonkey). Itch-Sort-And-Ex
 
 ## Installation
 
-1. Add the Tampermonkey extension to your
-   browser: [Get it directly from the official website](https://www.tampermonkey.net/),
+1. Add the Violentmonkey extension to your
+   browser: [Get it directly from the official website](https://violentmonkey.github.io/),
 2. Click [HERE](https://github.com/6uhrmittag/Itch-Sort-And-Export/raw/main/Itch-Sort-And-Export.user.js) and you should
    be prompted to install the script.
 
@@ -84,4 +84,4 @@ The Userscript can also be found on itch.io: [https://6uhrmittag.itch.io/itch-so
 - [ChatGPT-4 by OpenAI](https://openai.com/gpt-4) - **ChatGPT wrote 99%** of the Code of the userscript. It even
   generated most of this README. We developed version 0.1 of the Userscript in a single chat thread/context over 3 hours.
 - [Itch.io](https://itch.io/) - For providing a fantastic platform for indie games.
-- [Tampermonkey](https://www.tampermonkey.net/) - For making userscript management easy and accessible.
+- [Tampermonkey](https://www.tampermonkey.net/) - For making userscript management easy and accessible. (edit: 03.01.24: I've learned that the usage of Tampermonkey is discouraged partly because for being closed source. Violentmonkey is recommended instead. But I'm still grateful for the easy start with Tampermonkey:3)
