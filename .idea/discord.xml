@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DiscordProjectSettings">
+    <option name="show" value="PROJECT_FILES" />
+    <option name="nameOverrideEnabled" value="true" />
+    <option name="nameOverrideText" value="Itch-Sort-And-Export" />
+    <option name="description" value="Userscript to Sort the listed games by price or discount and Export them as CSV" />
+    <option name="applicationTheme" value="default" />
+    <option name="iconsTheme" value="default" />
+    <option name="button1Title" value="project@github" />
+    <option name="button1Url" value="https://github.com/6uhrmittag/Itch-Sort-And-Export" />
+    <option name="button2Title" value="" />
+    <option name="button2Url" value="" />
+    <option name="customApplicationId" value="" />
+  </component>
+</project>

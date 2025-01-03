@@ -2,7 +2,7 @@
 // @name          Itch-Sort-And-Export
 // @description   Quickly sort and export Itch.io game listings.
 // @namespace     https://github.com/6uhrmittag
-// @version       0.3.2
+// @version       0.3.3
 // @author        6uhrmittag
 // @match         https://itch.io/*
 // @grant         none
@@ -13,7 +13,11 @@
 // ==/UserScript==
 
 (function () {
+    console.log("before strict");
+
     'use strict';
+
+    console.log("Extension started!");
 
     // Constants for calculating and display estimated time
     const totalGames = getTotalGames();
@@ -325,9 +329,13 @@
     // add buttons after page is loaded
     // Version for Firefox
     if (document.readyState === "complete") {
+        console.log("document.readyState === \"complete\"");
+
         createNewButtons();
     } else {
         // Version for Chrome and Edge
+        console.log("else");
+
         window.addEventListener('load', createNewButtons);
     }
 
